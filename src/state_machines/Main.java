@@ -1,8 +1,10 @@
 package state_machines;
 
+import state_machines.dfa.DFA;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        DFA thing = new DFA();
     }
 }
