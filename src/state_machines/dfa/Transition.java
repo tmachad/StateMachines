@@ -12,7 +12,7 @@ public class Transition {
         this.destination = destination;
     }
 
-    public State MakeTransition(Character input) {
+    public State makeTransition(Character input) {
         if (transitionChar == input) {
             return destination;
         } else {

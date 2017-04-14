@@ -26,4 +26,24 @@ public class State {
         this.accept = accept;
         this.start = start;
     }
+
+    public void addTransition(Transition transition) {
+        transitions.add(transition);
+    }
+
+    public boolean isStart() {
+        return start;
+    }
+
+    public boolean isAccept() {
+        return accept;
+    }
+
+    public Transition tryTransition (Character input) {
+        for(Transition transition : transitions) {
+            if (transition.makeTransition(input) != null)
+                return transition;
+        }
+        return null;
+    }
 }
