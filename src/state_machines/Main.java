@@ -1,10 +1,9 @@
 package state_machines;
 
-import state_machines.dfa.DFA;
-
 public class Main {
 
     public static void main(String[] args) {
-        DFA thing = new DFA();
+        int[] arr = {1,2,3,4,5};
+        System.out.println(arr[7]);
     }
 }

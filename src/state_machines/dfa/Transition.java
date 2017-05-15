@@ -1,11 +1,8 @@
 package state_machines.dfa;
 
-/**
- * Created by Tom Machado on 11/04/2017.
- */
 public class Transition {
-    private Character transitionChar;
-    private State destination;
+    private final Character transitionChar;
+    private final State destination;
 
     public Transition(Character transitionChar, State destination) {
         this.transitionChar = transitionChar;
@@ -18,5 +15,9 @@ public class Transition {
         } else {
             return null;
         }
+    }
+    
+    public Character getTransitionChar() {
+        return transitionChar;
     }
 }
