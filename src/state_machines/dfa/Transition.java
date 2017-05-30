@@ -1,23 +1,18 @@
 package state_machines.dfa;
 
-public class Transition {
-    private final Character transitionChar;
-    private final State destination;
+import state_machines.BaseTransition;
 
-    public Transition(Character transitionChar, State destination) {
-        this.transitionChar = transitionChar;
-        this.destination = destination;
+public class Transition extends BaseTransition<Character, State> {
+
+    public Transition(Character transitionKey, State destination) {
+        super(transitionKey, destination);
     }
 
     public State makeTransition(Character input) {
-        if (transitionChar == input) {
-            return destination;
+        if (transitionKey.get() == input) {
+            return destination.get();
         } else {
             return null;
         }
-    }
-    
-    public Character getTransitionChar() {
-        return transitionChar;
     }
 }
