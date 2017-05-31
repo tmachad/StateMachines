@@ -10,9 +10,13 @@ public abstract class BaseState<K, T extends BaseTransition<K, ? extends BaseSta
     protected final BooleanProperty accept, start;
     
     protected BaseState() {
-        this.name = new SimpleStringProperty(this, "name", "");
-        this.accept = new SimpleBooleanProperty(this, "accept", false);
-        this.start = new SimpleBooleanProperty(this, "start", false);
+        this("", false, false);
+    }
+    
+    protected BaseState(String name, boolean accept, boolean start) {
+        this.name = new SimpleStringProperty(this, "name", name);
+        this.accept = new SimpleBooleanProperty(this, "accept", accept);
+        this.start = new SimpleBooleanProperty(this, "start", start);
     }
     
     /**
@@ -20,7 +24,7 @@ public abstract class BaseState<K, T extends BaseTransition<K, ? extends BaseSta
      * from this state.
      * @param transition The new transition.
      */
-    public abstract void addTransition (T transition);
+    public abstract boolean addTransition (T transition);
     
     /**
      * Returns whether or not this state has <em>at least one</em>

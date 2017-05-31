@@ -13,7 +13,6 @@ public class State extends BaseState<Character, Transition> {
         transitions = new SimpleMapProperty<>(this, "transitions", FXCollections.observableHashMap());
     }
     
-    
     @Override
     public void addTransition(final Transition transition) {
         transitions.put(transition.getTransitionKey(), transition);
