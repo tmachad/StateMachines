@@ -24,7 +24,7 @@ public abstract class BaseTransition <K, T extends BaseState<K, ? extends BaseTr
         return transitionKey;
     }
     
-    public BaseState getDestination() {
+    public T getDestination() {
         return destination.get();
     }
     

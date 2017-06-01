@@ -9,23 +9,27 @@ import javafx.collections.FXCollections;
 import java.util.Collection;
 
 public abstract class BaseIterator<K, S extends BaseState<K, ? extends BaseTransition<K, S>>, T extends BaseTransition<K, ? extends BaseState<K, T>>> {
-    private final ListProperty<K> input;
-    private int head;
-    private final ObjectProperty<S> currentState;
+    protected final ListProperty<K> input;
+    protected int head;
+    protected final ObjectProperty<S> currentState;
+    protected final ObjectProperty<RunningState> runningState;
     
-    public BaseIterator() {
+    public enum RunningState {
+        Run, Accept, Reject
+    }
+    
+    protected BaseIterator() {
         this(0, null, null);
     }
     
-    public BaseIterator(int head, Collection<K> input, S initialState) {
+    protected BaseIterator(int head, Collection<K> input, S initialState) {
         this.head = head;
         this.input = new SimpleListProperty<>(this, "input", FXCollections.observableArrayList(input));
         this.currentState = new SimpleObjectProperty<>(this, "currentState", initialState);
+        this.runningState = new SimpleObjectProperty<>(this, "runningState", RunningState.Run);
     }
     
-    public abstract boolean hasNext();
+    protected abstract boolean hasNext();
     
-    public abstract boolean hasNext(K key);
-    
-    public abstract boolean next();
+    protected abstract boolean hasNext(K key);
 }

@@ -20,6 +20,7 @@ public abstract class DeterministicState<K, T extends DeterministicTransition<K,
         this.transitions = new SimpleMapProperty<>(this, "transitions", FXCollections.observableMap(transitions));
     }
     
+    @SuppressWarnings("unchecked")
     public boolean addTransition(T transition) {
         if (transitions.get(transition.getTransitionKey()) != null) {
             transitions.put(transition.getTransitionKey(), transition);
@@ -33,7 +34,7 @@ public abstract class DeterministicState<K, T extends DeterministicTransition<K,
         return transitions.get(key) != null;
     }
     
-    public ObservableMap getTransitions() {
+    public ObservableMap<K, T> getTransitions() {
         return transitions.get();
     }
     

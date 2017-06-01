@@ -1,8 +1,8 @@
 package state_machines.dfa;
 
-import state_machines.BaseTransition;
+import state_machines.DeterministicTransition;
 
-public class Transition extends BaseTransition<Character, State> {
+public class Transition extends DeterministicTransition<Character, State> {
 
     public Transition(Character transitionKey, State destination) {
         super(transitionKey, destination);
