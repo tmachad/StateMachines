@@ -1,27 +1,54 @@
 package state_machines.dfa;
 
-import javafx.beans.property.SetProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
+import state_machines.DeterministicStateMachine;
 
+import java.util.Collection;
 import java.util.Set;
 
-public class DFA {
-    private SetProperty<State> states;
-    private Iterator iterator;
+public class DFA extends DeterministicStateMachine<Character, State, Transition, Iterator>{
 
     public DFA() {
-        states = new SimpleSetProperty<>(FXCollections.observableSet());
-        iterator = new Iterator();
-    }
-
-    public DFA(Set<State> states) {
-        this.states = new SimpleSetProperty<>(FXCollections.observableSet(states));
-        this.iterator = new Iterator();
     }
     
-    public DFA(Set<State> states, State initialState, String input) {
-        this.states = new SimpleSetProperty<>(FXCollections.observableSet(states));
-        this.iterator = new Iterator(initialState, input);
+    public DFA(Set<State> states) {
+    
+    }
+    
+    public DFA(Set<State> states, State initialState) {
+        this.states = new SimpleSetProperty<>(this, "states", FXCollections.observableSet(states));
+        this.initialState = new SimpleObjectProperty<>(this, "initialState", initialState);
+    }
+    
+    @Override
+    protected Iterator iterator(final Collection<Character> input) {
+        return new Iterator(0, input, this.initialState.get());
+    }
+    
+    protected DFABuilder getBuilder() {
+        return new DFABuilder();
+    }
+    
+    private static class DFABuilder extends DeterministicStateMachineBuilder<Character, State, Transition, DFA, DFABuilder> {
+    
+        private DFABuilder() {
+            super();
+        }
+        
+        private DFABuilder(Set<State> states, State initialState) {
+            super(states, initialState);
+        }
+        
+        @Override
+        protected DFABuilder copyOf() {
+            return new DFABuilder();
+        }
+    
+        @Override
+        public DFA build() {
+            return new DFA(this.states, this.initialState);
+        }
     }
 }
