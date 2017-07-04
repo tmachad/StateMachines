@@ -7,8 +7,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 
 import java.util.Collection;
+import java.util.Iterator;
 
-public abstract class BaseIterator<K, S extends BaseState<K, ? extends BaseTransition<K, S>>, T extends BaseTransition<K, ? extends BaseState<K, T>>> {
+public abstract class BaseIterator<K,
+        S extends BaseState<K, T>,
+        T extends BaseTransition<K, S>>
+        implements Iterator<S> {
     protected final ListProperty<K> input;
     protected int head;
     protected final ObjectProperty<S> currentState;
@@ -28,8 +32,6 @@ public abstract class BaseIterator<K, S extends BaseState<K, ? extends BaseTrans
         this.currentState = new SimpleObjectProperty<>(this, "currentState", initialState);
         this.runningState = new SimpleObjectProperty<>(this, "runningState", RunningState.Run);
     }
-    
-    protected abstract boolean hasNext();
     
     protected abstract boolean hasNext(K key);
 }

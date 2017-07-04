@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 
 public abstract class BaseState<K, T extends BaseTransition<K, ? extends BaseState<K, T>>> {
     protected final StringProperty name;
-    protected final BooleanProperty accept, start;
+    protected final BooleanProperty accept;
     
     protected BaseState() {
         this("", false, false);
@@ -16,7 +16,6 @@ public abstract class BaseState<K, T extends BaseTransition<K, ? extends BaseSta
     protected BaseState(String name, boolean accept, boolean start) {
         this.name = new SimpleStringProperty(this, "name", name);
         this.accept = new SimpleBooleanProperty(this, "accept", accept);
-        this.start = new SimpleBooleanProperty(this, "start", start);
     }
     
     /**
@@ -60,34 +59,7 @@ public abstract class BaseState<K, T extends BaseTransition<K, ? extends BaseSta
     public void setAccept(final boolean accept) {
         this.accept.set(accept);
     }
-    
-    /**
-     * Returns whether or not this state is a start state.
-     * @return Whether or not this state is a start state.
-     */
-    public boolean isStart() {
-        return start.get();
-    }
-    
-    /**
-     * Returns the start property of this state.
-     * @return The start property of this state.
-     */
-    public BooleanProperty startProperty() {
-        return start;
-    }
-    
-    /**
-     * Sets the value contained in the start property
-     * to the given value. This value determines whether
-     * or not this state is a start state.
-     * @param start The new value of the start property.
-     */
-    public void setStart(final boolean start) {
-        this.start.set(start);
-    }
-    
-    
+
     public String getName() {
         return name.get();
     }

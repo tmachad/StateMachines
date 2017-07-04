@@ -9,15 +9,8 @@ import java.util.Collection;
 import java.util.Set;
 
 public class DFA extends DeterministicStateMachine<Character, State, Transition, Iterator>{
-
-    public DFA() {
-    }
     
-    public DFA(Set<State> states) {
-    
-    }
-    
-    public DFA(Set<State> states, State initialState) {
+    private DFA(Set<State> states, State initialState) {
         this.states = new SimpleSetProperty<>(this, "states", FXCollections.observableSet(states));
         this.initialState = new SimpleObjectProperty<>(this, "initialState", initialState);
     }
@@ -31,7 +24,8 @@ public class DFA extends DeterministicStateMachine<Character, State, Transition,
         return new DFABuilder();
     }
     
-    private static class DFABuilder extends DeterministicStateMachineBuilder<Character, State, Transition, DFA, DFABuilder> {
+    private static class DFABuilder
+            extends DeterministicStateMachineBuilder<Character, State, Transition, DFA, DFABuilder> {
     
         private DFABuilder() {
             super();
@@ -43,11 +37,18 @@ public class DFA extends DeterministicStateMachine<Character, State, Transition,
         
         @Override
         protected DFABuilder copyOf() {
-            return new DFABuilder();
+            return new DFABuilder(states, initialState);
         }
     
         @Override
         public DFA build() {
+            String errors = validate(false);
+            if (errors.length() > 0) {
+                StringBuilder sb = new StringBuilder();
+                sb.append("Errors in DFA configuration:\n");
+                sb.append(errors);
+                throw new IllegalStateException(sb.toString());
+            }
             return new DFA(this.states, this.initialState);
         }
     }

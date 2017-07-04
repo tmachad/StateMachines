@@ -3,8 +3,8 @@ package state_machines;
 import java.util.Collection;
 
 public abstract class DeterministicIterator<K,
-        S extends DeterministicState<K, ? extends DeterministicTransition<K, S>>,
-        T extends  DeterministicTransition<K, ? extends DeterministicState<K, T>>> extends BaseIterator<K, S, T> {
+        S extends DeterministicState<K, T>,
+        T extends  DeterministicTransition<K, S>> extends BaseIterator<K, S, T> {
     
     protected DeterministicIterator(int head, Collection<K> input, S initialState) {
         super(head, input, initialState);
@@ -20,7 +20,7 @@ public abstract class DeterministicIterator<K,
         return currentState.get().transitions.get(key) != null;
     }
     
-    public boolean next() {
+    public S next() {
         if (runningState.get() == RunningState.Run) {
             if (hasNext()) {
                 K inputKey = input.get(head);
@@ -29,10 +29,10 @@ public abstract class DeterministicIterator<K,
             
                     currentState.set(nextState);
                     head++;
-                    return true;
+                    return currentState.get();
                 } else {
                     runningState.set(RunningState.Reject);
-                    return false;
+                    return null;
                 }
             } else {
                 if (currentState.get().isAccept()) {
@@ -40,10 +40,10 @@ public abstract class DeterministicIterator<K,
                 } else {
                     runningState.set(RunningState.Reject);
                 }
-                return false;
+                return null;
             }
         } else {
-            return false;
+            return null;
         }
     }
 }
