@@ -13,10 +13,16 @@ public abstract class DeterministicState<K, T extends DeterministicTransition<K,
     protected final MapProperty<K, T> transitions;
     
     protected DeterministicState() {
-        this(new HashMap<>());
+        this("", false, false, new HashMap<>());
     }
     
-    protected DeterministicState(Map<K, T> transitions) {
+    protected DeterministicState(String name, boolean start, boolean accept) {
+        super(name, start, accept);
+        this.transitions = new SimpleMapProperty<>(this, "transitions", FXCollections.observableHashMap());
+    }
+    
+    protected DeterministicState(String name, boolean start, boolean accept, Map<K, T> transitions) {
+        super(name, start, accept);
         this.transitions = new SimpleMapProperty<>(this, "transitions", FXCollections.observableMap(transitions));
     }
     

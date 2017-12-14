@@ -7,4 +7,7 @@ public class State extends DeterministicState<Character, Transition> {
         super();
     }
     
+    public State(String name, boolean start, boolean accept) {
+        super(name, start, accept);
+    }
 }
