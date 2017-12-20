@@ -26,6 +26,11 @@ public abstract class DeterministicState<K, T extends DeterministicTransition<K,
         this.transitions = new SimpleMapProperty<>(this, "transitions", FXCollections.observableMap(transitions));
     }
     
+    protected DeterministicState(DeterministicStateConfig stateConfig) {
+        super(stateConfig);
+        this.transitions = new SimpleMapProperty<>(this, "transitions", FXCollections.observableMap(stateConfig.transitions));
+    }
+    
     @SuppressWarnings("unchecked")
     public boolean addTransition(T transition) {
         if (transitions.get(transition.getTransitionKey()) != null) {
@@ -46,5 +51,24 @@ public abstract class DeterministicState<K, T extends DeterministicTransition<K,
     
     public MapProperty<K, T> transitionsProperty() {
         return transitions;
+    }
+    
+    public static class DeterministicStateConfig<K, T extends DeterministicTransition<K, ? extends DeterministicState<K, T>>> extends BaseStateConfig {
+        public Map<K, T> transitions;
+        
+        public DeterministicStateConfig() {
+            super();
+            this.transitions = new HashMap<>();
+        }
+        
+        public DeterministicStateConfig(String name, boolean start, boolean accept) {
+            super(name, start, accept);
+            this.transitions = new HashMap<>();
+        }
+        
+        public DeterministicStateConfig(String name, boolean start, boolean accept, Map<K, T> transitions) {
+            super(name, start, accept);
+            this.transitions = transitions;
+        }
     }
 }

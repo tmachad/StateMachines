@@ -20,6 +20,12 @@ public abstract class BaseState<K, T extends BaseTransition<K, ? extends BaseSta
         this.accept = new SimpleBooleanProperty(this, "accept", accept);
     }
     
+    protected BaseState(BaseStateConfig stateConfig) {
+        this.name = new SimpleStringProperty(this, "name", stateConfig.name);
+        this.start = new SimpleBooleanProperty(this, "start", stateConfig.start);
+        this.accept = new SimpleBooleanProperty(this, "accept", stateConfig.accept);
+    }
+    
     /**
      * Adds the given transition to the collection of transitions
      * from this state.
@@ -94,5 +100,23 @@ public abstract class BaseState<K, T extends BaseTransition<K, ? extends BaseSta
     
     public StringProperty nameProperty() {
         return name;
+    }
+    
+    public static class BaseStateConfig {
+        public String name;
+        public boolean start;
+        public boolean accept;
+        
+        public BaseStateConfig() {
+            this.name = "";
+            this.start = false;
+            this.accept = false;
+        }
+        
+        public BaseStateConfig(String name, boolean start, boolean accept) {
+            this.name = name;
+            this.start = start;
+            this.accept = accept;
+        }
     }
 }
