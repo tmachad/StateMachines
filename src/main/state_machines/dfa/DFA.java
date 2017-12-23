@@ -21,15 +21,11 @@ public class DFA extends DeterministicStateMachine<Character, State, Transition,
     protected Iterator iterator(final Collection<Character> input) {
         return new Iterator(0, input, this.initialState.get());
     }
-    
-    protected DFABuilder getBuilder() {
-        return new DFABuilder();
-    }
 
-    private static class DFABuilder
+    public static class DFABuilder
             extends DeterministicStateMachineBuilder<Character, State, Transition, DFA, DFABuilder> {
 
-        private DFABuilder() {
+        public DFABuilder() {
             super();
         }
 
@@ -41,7 +37,7 @@ public class DFA extends DeterministicStateMachine<Character, State, Transition,
         protected DFABuilder copyOf() {
             return new DFABuilder(states, initialState);
         }
-
+        
         @Override
         public DFABuilder withState(String stateName, boolean start, boolean accept) {
             State state;

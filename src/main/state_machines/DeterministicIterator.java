@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public abstract class DeterministicIterator<K,
         S extends DeterministicState<K, T>,
-        T extends  DeterministicTransition<K, S>> extends BaseIterator<K, S, T> {
+        T extends DeterministicTransition<K, S>> extends BaseIterator<K, S, T> {
     
     protected DeterministicIterator(int head, Collection<K> input, S initialState) {
         super(head, input, initialState);

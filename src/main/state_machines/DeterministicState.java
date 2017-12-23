@@ -5,11 +5,12 @@ import javafx.beans.property.MapProperty;
 import javafx.beans.property.SimpleMapProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import state_machines.BaseState;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class DeterministicState<K, T extends DeterministicTransition<K, ? extends DeterministicState<K, T>>> extends BaseState<K, T>{
+public abstract class DeterministicState<K, T extends DeterministicTransition<K, ? extends DeterministicState<K, T>>> extends BaseState<K, T> {
     protected final MapProperty<K, T> transitions;
     
     protected DeterministicState() {
